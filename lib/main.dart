@@ -15,7 +15,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Baby Names',
+      title: 'Firebase Auth',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
       home: MyHomePage(),
     );
   }
@@ -29,61 +32,59 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  final emailInputController = new TextEditingController();
+  final passwordInputController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Baby Name Votes')),
-      body: _buildBody(context),
+      appBar: AppBar(title: Text('Login')),
+      body: _layoutBody(),
     );
   }
 
-  Widget _buildBody(BuildContext context) {
-    // TODO: get actual snapshot from Cloud Firestore
-    return _buildList(context, dummySnapshot);
-  }
-
-  Widget _buildList(BuildContext context, List<Map> snapshot) {
-    return ListView(
-      padding: const EdgeInsets.only(top: 20.0),
-      children: snapshot.map((data) => _buildListItem(context, data)).toList(),
-    );
-  }
-
-  Widget _buildListItem(BuildContext context, Map data) {
-    final record = Record.fromMap(data);
-
-    return Padding(
-      key: ValueKey(record.name),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        child: ListTile(
-          title: Text(record.name),
-          trailing: Text(record.votes.toString()),
-          onTap: () => print(record),
+  Widget _layoutBody() {
+    return new Center(
+      child: new Form(
+        child: new SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: new Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              const SizedBox(height: 24.0),
+              new TextFormField(
+                controller: emailInputController,
+                decoration: const InputDecoration(
+                  border: const UnderlineInputBorder(),
+                  labelText: 'Email',
+                ),
+              ),
+              const SizedBox(height: 24.0),
+              new TextFormField(
+                controller: passwordInputController,
+                decoration: new InputDecoration(
+                  border: const UnderlineInputBorder(),
+                  labelText: 'Password',
+                ),
+                obscureText: true,
+              ),
+              const SizedBox(height: 24.0),
+              new Center(
+                child: new RaisedButton(
+                  child: const Text('Login'),
+                  onPressed: () {
+                    var email = emailInputController.text;
+                    var password = passwordInputController.text;
+                    // ここにログイン処理を書く
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class Record {
-  final String name;
-  final int votes;
-  final DocumentReference reference;
-
-  Record.fromMap(Map<String, dynamic> map, {this.reference})
-    : assert(map['name'] != null),
-      assert(map['votes'] != null),
-      name = map['name'],
-      votes = map['votes'];
-
-  Record.fromSnapshot(DocumentSnapshot snapshot)
-    : this.fromMap(snapshot.data, reference: snapshot.reference);
-
-  @override
-  String toString() => "Record<$name:$votes>";
-}
