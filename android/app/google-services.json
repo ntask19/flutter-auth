@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "192059199344",
+    "firebase_url": "https://kstsystems-5d1d3.firebaseio.com",
+    "project_id": "kstsystems-5d1d3",
+    "storage_bucket": "kstsystems-5d1d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192059199344:android:b53d56159673239a7549b5",
+        "android_client_info": {
+          "package_name": "com.hhg.flutter.auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192059199344-0pnifaraht9cfulbcbmk1k2rt87ftocb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnRarUXu6rxEDN-Td3q8pUTlW_dpmHgxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192059199344-0pnifaraht9cfulbcbmk1k2rt87ftocb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192059199344:android:59cccd7b801fe404",
+        "android_client_info": {
+          "package_name": "com.kst.colorz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192059199344-0pnifaraht9cfulbcbmk1k2rt87ftocb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnRarUXu6rxEDN-Td3q8pUTlW_dpmHgxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192059199344-0pnifaraht9cfulbcbmk1k2rt87ftocb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192059199344:android:1b02b1d65ee854df",
+        "android_client_info": {
+          "package_name": "com.kst.stopwatch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192059199344-0pnifaraht9cfulbcbmk1k2rt87ftocb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnRarUXu6rxEDN-Td3q8pUTlW_dpmHgxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192059199344-0pnifaraht9cfulbcbmk1k2rt87ftocb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-2136596755146345~3485135747"
+    }
+  ],
+  "configuration_version": "1"
+}
