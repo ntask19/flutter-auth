@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'package:auth/pages/list.dart';
+
 final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
 void main() => runApp(MyApp());
@@ -14,6 +16,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       home: MyHomePage(),
+      routes: <String, WidgetBuilder>{
+        '/list': (_) => new List(),
+      },
     );
   }
 }
@@ -36,6 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
       email: email, password: password);
     print("User id is ${result.user.uid}");
+
     showDialog(
       context: context,
       builder: (_) {
@@ -45,7 +51,10 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: <Widget>[
             FlatButton(
               child: Text("OK"),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushNamed("/list");
+              },
             ),
           ],
         );
