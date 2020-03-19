@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auth/pages/account.dart';
 
 class ListPage extends StatefulWidget {
   @override
@@ -6,6 +7,9 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListState extends State<ListPage> with SingleTickerProviderStateMixin {
+  PageController _pageController;
+  int _page = 0;
+
   static const listItem = [
     "食パン", "おにぎり", "弁当",
     "フランス料理", "コンビニ", "惣菜",
@@ -31,6 +35,13 @@ class _ListState extends State<ListPage> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _tabController = TabController(length: tabs.length, vsync: this);
+    _pageController = new PageController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _pageController.dispose();
   }
 
   @override
@@ -39,49 +50,61 @@ class _ListState extends State<ListPage> with SingleTickerProviderStateMixin {
       appBar: new AppBar(
         title: const Text("キャンセル一覧"),
       ),
-      bottomNavigationBar: SafeArea(
-        child: TabBar(
-          tabs: tabs,
-          controller: _tabController,
-          indicator: UnderlineTabIndicator(
-            borderSide: BorderSide(color: Colors.green, width: 5),
-            insets: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 40),
+      bottomNavigationBar: new BottomNavigationBar(
+        currentIndex: _page,
+        onTap: onTapBottomNavigation,
+        items: [
+          new BottomNavigationBarItem(
+            icon: new Icon(Icons.home),
+            title: new Text("Home")
           ),
-          unselectedLabelColor: Colors.grey,
-          indicatorColor: Colors.green,
-          indicatorSize: TabBarIndicatorSize.tab,
-          indicatorWeight: 2,
-          indicatorPadding:
-          EdgeInsets.symmetric(horizontal: 18.0, vertical: 8),
-          labelColor: Colors.black,
-        ),
+          new BottomNavigationBarItem(
+            icon: new Icon(Icons.person),
+            title: new Text("Setting")
+          ),
+        ],
       ),
-      body: ListView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          return Card(
-            child: Column(
-              children: <Widget>[
-                Image.network(imageUrl),
-                Text(listItem[index], style: TextStyle(fontSize: 24.0),),
-                Icon(Icons.access_time),
-                Text('15:00', style: TextStyle(fontSize: 16.0),),
-//                Row(
-//                )
-              ],
-            ),
-          );},
-        itemCount: listItem.length,
+      body: new PageView(
+        controller: _pageController,
+        onPageChanged: onPageChanged,
+        children: [
+          HomePage(),
+          AccountPage(),
+        ],
       ),
+
     );
   }
 
+  void onTapBottomNavigation(int page) {
+    _pageController.animateToPage(
+      page,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.ease
+    );
+  }
+
+  void onPageChanged(int page) {
+    setState(() {
+      this._page = page;
+    });
+  }
+
   @override
-  Widget _createTab(Tab tab) {
-    return Center(
-      child: Text(
-        "Tab",
-        style: TextStyle(fontSize: 24.0),
-      ),
+  Widget HomePage() {
+    return ListView.builder(
+      itemBuilder: (BuildContext context, int index) {
+        return Card(
+          child: Column(
+            children: <Widget>[
+              Image.network(imageUrl),
+              Text(listItem[index], style: TextStyle(fontSize: 24.0),),
+              Icon(Icons.access_time),
+              Text('15:00', style: TextStyle(fontSize: 16.0),),
+            ],
+          ),
+        );},
+      itemCount: listItem.length,
     );
   }
 }
