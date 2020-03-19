@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       ),
       home: MyHomePage(),
       routes: <String, WidgetBuilder>{
-        '/list': (_) => new List(),
+        '/list': (_) => new ListPage(),
       },
     );
   }
@@ -35,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final emailInputController = new TextEditingController();
   final passwordInputController = new TextEditingController();
 
+  //  メアドでログイン
   Future<AuthResult> _signIn(String email, String password) async {
     email = email.trim();
     print("email is ${email}, password is ${password}");
