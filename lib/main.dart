@@ -1,15 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-final dummySnapshot = [
-  {"name": "Filip", "votes": 15},
-  {"name": "Abraham", "votes": 14},
-  {"name": "Richard", "votes": 11},
-  {"name": "Ike", "votes": 10},
-  {"name": "Justin", "votes": 1},
-];
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -35,6 +29,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final emailInputController = new TextEditingController();
   final passwordInputController = new TextEditingController();
+
+  Future<AuthResult> _signIn(String email, String password) async {
+    email = email.trim();
+    print("email is ${email}, password is ${password}");
+    final AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
+      email: email, password: password);
+    print("User id is ${result.user.uid}");
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     var email = emailInputController.text;
                     var password = passwordInputController.text;
-                    // ここにログイン処理を書く
+                    return _signIn(email, password)
+                      .then((AuthResult result) => print(result.user))
+                      .catchError((e) => print(e));
                   },
                 ),
               ),
