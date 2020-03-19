@@ -36,6 +36,21 @@ class _MyHomePageState extends State<MyHomePage> {
     final AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
       email: email, password: password);
     print("User id is ${result.user.uid}");
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("ログイン"),
+          content: Text("ログイン成功です"),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("OK"),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
+        );
+      },
+    );
     return result;
   }
 
